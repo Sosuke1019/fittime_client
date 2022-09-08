@@ -61,7 +61,7 @@ export default {
         edit_name: "",
         edit_profile: "",
         name: "",
-        userid: "17ec5bf6-2f51-11ed-9c65-0242ac150004",
+        userid: "",
       };
     },
 
@@ -93,6 +93,7 @@ export default {
       },
 
       save: async function () {
+        this.userid = sessionStorage.getItem("id")
         await axios
         .get("http://118.27.15.148:8000/api/user/"+this.userid, {
           userid: this.userid,
