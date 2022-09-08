@@ -142,7 +142,7 @@ export default {
   // }),
   methods: {
     onclick1: function () {
-      this.$router.push("/");
+      this.$router.push("/MyPage");
     },
     onclick2: function () {
       this.$router.push("/favo");
