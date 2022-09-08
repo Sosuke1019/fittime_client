@@ -88,9 +88,8 @@ export default {
         .then(response => {
              console.log(response.data["Profile"])      
         }) 
-        this.$router.push("/Mypage");
-        // this.edit_before_profile = ""
-        // this.edit_before_name = ""
+        
+        this.$router.go({path: this.$router.currentRoute.path, force: true}) 
       },
 
       save: async function () {
@@ -108,13 +107,9 @@ export default {
           console.log(this.edit_before_profile)
             
         }) 
-          
-          
-        
-      
-        
-    },
-    
+             
+              
+    },   
 }
 }
 </script>
@@ -127,8 +122,8 @@ export default {
   margin: auto;
 }
 #body h1{
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 font-size: 35px;
 }
 </style>
