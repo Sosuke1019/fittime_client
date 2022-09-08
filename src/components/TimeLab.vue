@@ -83,7 +83,7 @@ export default {
       tag: "",
       menus: [],
       menuid:"",
-      userId: this.userid
+      userid:'',
     };
   },
   // data1: () => ({
@@ -95,7 +95,7 @@ export default {
       console.log("this page"+this.userid);
     },
     onclick1: function () {
-      this.$router.push("/");
+      this.$router.push("/mypage");
     },
     onclick2: function () {
       this.$router.push("/favo");
@@ -107,7 +107,7 @@ export default {
       this.$router.push("/post");
     },
     onclick5: function () {
-      this.$router.push("/login");
+      this.$router.push("/logout");
     },
     // search() {
     //   console.log(this.tag);
@@ -199,13 +199,13 @@ export default {
       //   this.menus = response;         
       //   });
 
-      this.$router.push('/');
+      this.$router.push('/timelab');
 
       
     },
 
     add(){
-      this.userId = this.menus.users.userId;
+      this.userid=sessionStorage.getItem("id");
       this.menuid = this.menus.menus.menuId;
 
       axios
@@ -214,7 +214,7 @@ export default {
         console.log(response);          
         });
 
-      this.$router.push('/time')
+      this.$router.push('/timelab')
     },
   },
 
@@ -224,9 +224,14 @@ export default {
     },
   },
 
-  // mounted() {
-  //   this.searchUser();
-  // },
+  mounted() {
+     axios
+     .get("http://118.27.15.148:8000/api/timeline", {})
+     .then(response =>{
+        console.log(response);
+        this.menus = response;     
+        });
+  },
 };
 </script>
 
