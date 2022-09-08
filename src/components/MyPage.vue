@@ -18,7 +18,7 @@
           label="ユーザー名"
           rows="1"
           row-height="20"
-          placeholder="ユーザー名を編集"
+          :placeholder="edit_before_username"
         ></v-textarea>
 
         <!-- メニュー追記 -->
@@ -28,7 +28,7 @@
           counter
           label="自己紹介文"
           no-resize
-          placeholder="自己紹介文を編集"
+          :placeholder="edit_before_profile"
           rows="3"
           v-bind:rules="myrules"
         ></v-textarea>
@@ -49,78 +49,76 @@ export default {
   components: {
     MyBar: MyBar,
   },
-  data: () => ({
+  // data: () => ({
     data() {
       return {
         myrules: [(text) => text.length <= 30 || "最大文字数は30文字です"],
         showPassword: false,
-        edit_begore_username: "",
+        edit_before_username: "1",
         edit_before_profile: "",
         edit_name: "",
         edit_profile: "",
-        userid: "",
+        name: "",
+        userid: "17ec5bf6-2f51-11ed-9c65-0242ac150004",
       };
     },
+
+    mounted(){
+      this.save();
+    },
+    
     methods: {
       // プロフィール情報を更新
       edit: async function () {
       await axios
-        .post("http://localhost:8000/api/user/" + this.userid + "/" + this.edit_begore_username, {
-          title: this.title,
-          body: this.name,
-          exercises: this.menu,
-        })
-        .then(function (response) {
-          console.log(response.userid);
-          this.$router.push("/Mypage");
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.$router.push("/MyPage");
-        })
+        .patch("http://118.27.15.148:8000/api/user/" + this.userid + "/username", 
+        {
+          username: this.edit_name,
+          })
+        .then(response => {
+                  console.log(response.data["Name"])   
+        })    
 
       await axios
-        .post("http://localhost:8000/api/user/" + this.userid + "/menu", {
-          title: this.title,
-          body: this.name,
-          exercises: this.menu,
+        .patch("http://118.27.15.148:8000/api/user/" + this.userid + "/profile", {
+          profile: this.edit_profile,
         })
-        .then(function (response) {
-          console.log(response.userid);
-          this.$router.push("/Mypage");
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.$router.push("/MyPage");
-        })
+        .then(response => {
+             console.log(response.data["Profile"])      
+        }) 
+        this.$router.push("/Mypage");
+        
       
       },
-        // プロフィール情報を取得
-        save: async function () {
-      await axios
-        .post("http://localhost:8000/api/user/"+this.userid, {
-          res_userid: this.userid,
+
+      save: async function () {
+        await axios
+        .get("http://118.27.15.148:8000/api/user/"+this.userid, {
+          userid: this.userid,
           
         })
-        .then(function (response) {
-          console.log(response.userid);
-          this.edit_begore_username = response.userid;
-          this.edit_before_profile = response.profile;
-          this.$router.push("/MyPage");
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.$router.push("/Mypage");
-        });
-    },
+        .then(response => {
+          
+          this.edit_before_username = response.data["Name"]
+          this.edit_before_profile = response.data["Profile"]
 
-    //
-  }),
-};
+          console.log(this.edit_before_username)
+          console.log(this.edit_before_profile)
+            
+        }) 
+          
+          
+        
+      
+        
+    },
+    
+}
+}
 </script>
 
 
-<style >
+<style>
 .body {
   width: 400px;
   text-align: center;
