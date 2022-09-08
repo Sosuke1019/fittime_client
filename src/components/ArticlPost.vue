@@ -62,27 +62,50 @@ export default {
     menu: "",
     input: 0,
     userid: "",
-    exerciseId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    exerciseId: "fde8b72a-2f94-11ed-8335-0242ac170004",
   }),
+
+  mounted(){
+      this.tag();
+    },
 
   methods: {
     submit: async function () {
       this.userid = sessionStorage.getItem("id");
       console.log(this.userid);
+      console.log(this.title)
+      console.log(this.menu)
       await axios
         .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
-          "title": this.title,
-          "body": this.menu,
-          "exercises": {
-            "exerciseId": this.exerciseId,
-            "time": this.input,
-          },
+          title: this.title,
+          body: this.menu,
+          exerciseId: this.exerciseId,
+          time: this.input,
         })
         .then(function (response) {
           console.log(response);
         });
-
       this.$router.go({path: '/TimeLine.vue', force: true}) 
+    },
+
+    tag: async function () {
+        this.userid = sessionStorage.getItem("id")
+        await axios
+        .get("http://118.27.15.148:8000/api/user/"+this.userid, {
+          userid: this.userid,
+          
+        })
+        .then(response => {
+          
+          this.edit_before_username = response.data["Name"]
+          this.edit_before_profile = response.data["Profile"]
+
+          console.log(this.edit_before_username)
+          console.log(this.edit_before_profile)
+            
+        }) 
+             
+              
     },
   },
 };
