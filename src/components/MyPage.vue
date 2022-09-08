@@ -7,9 +7,9 @@
       max-height="600"
     >
       <div id="body">
-        <v-col cols="4">
-          <h1>MyPage</h1>
-        </v-col>
+        
+          <h1>{{edit_before_username}}さんのMyPage</h1>
+        
 
         <v-textarea
           v-model="edit_name"
@@ -19,6 +19,7 @@
           rows="1"
           row-height="20"
           :placeholder="edit_before_username"
+          v-bind:rules="myrules_n"
         ></v-textarea>
 
         <!-- メニュー追記 -->
@@ -53,6 +54,7 @@ export default {
     data() {
       return {
         myrules: [(text) => text.length <= 30 || "最大文字数は30文字です"],
+        myrules_n: [(text) => text.length <= 10 || "最大文字数は10文字です"],
         showPassword: false,
         edit_before_username: "1",
         edit_before_profile: "",
@@ -87,8 +89,8 @@ export default {
              console.log(response.data["Profile"])      
         }) 
         this.$router.push("/Mypage");
-        
-      
+        // this.edit_before_profile = ""
+        // this.edit_before_name = ""
       },
 
       save: async function () {
@@ -123,5 +125,10 @@ export default {
   width: 400px;
   text-align: center;
   margin: auto;
+}
+#body h1{
+  margin-top: 40px;
+  margin-bottom: 40px;
+font-size: 35px;
 }
 </style>
