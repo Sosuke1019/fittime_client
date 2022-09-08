@@ -29,7 +29,7 @@
           plain
           @click="remove"
         >
-          Delete
+          Logout
         </v-btn>
       </v-sheet>
     </div>
@@ -53,7 +53,7 @@ export default {
 
       this.loading = false;
 
-      this.$router.push("/home");
+      this.$router.push("/");
     },
 
     re() {
