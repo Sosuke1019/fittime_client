@@ -53,13 +53,13 @@
                 this.$router.push('/favo');
             },
             onclick3: function(){
-                this.$router.push('/timeline');
+                this.$router.push('/timelab');
             },
             onclick4: function(){
                 this.$router.push('/post');
             },
             onclick5: function(){
-                this.$router.push('/login');
+                this.$router.push('/logout');
             }
 
         },
