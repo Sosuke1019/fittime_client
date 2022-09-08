@@ -2,9 +2,9 @@
   <MyBar />
   <v-sheet id="scrolling-techniques-7" class="overflow-y-auto" max-height="600">
     <div id="body">
-      <v-col cols="4">
+
         <h1>投稿</h1>
-      </v-col>
+
 
       <v-textarea
         v-model="title"
