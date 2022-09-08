@@ -28,7 +28,7 @@
         v-bind:rules="myrules"
       ></v-textarea>
       <!-- ドロップダウンメニュー -->
-      <v-select :items="items" filled label="ジャンル選択"></v-select>
+      <v-select :items="items" filled label="ジャンル選択" v-model="exerciseId"></v-select>
       <div class="text-center"></div>
       <!-- 所要時間入力 -->
       <v-textarea
@@ -61,25 +61,26 @@ export default {
     title: "",
     menu: "",
     input: "",
-    userid: "1",
+    userid: "17ec5bf6-2f51-11ed-9c65-0242ac150004",
+    exerciseId: "1",
   }),
 
   methods: {
     submit: async function () {
       await axios
-        .post("http://localhost:8000/api/user/" + this.userid + "/menu", {
-          title: this.title,
-          body: this.name,
-          exercises: this.menu,
+        .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
+          "title": this.title,
+          "body": this.menu,
+          "exercises": {
+            "exerciseId": this.exerciseId,
+            "time": this.input,
+          },
         })
         .then(function (response) {
-          console.log(response.userId);
-          this.$router.push("/TimeLine");
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.$router.push("/login");
+          console.log(response);
         });
+
+        this.$router.push("/TimeLine");
     },
   },
 };
