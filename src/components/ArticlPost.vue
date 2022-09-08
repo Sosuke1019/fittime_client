@@ -80,7 +80,7 @@ export default {
           console.log(response);
         });
 
-        this.$router.push("/TimeLine");
+      this.$router.go({path: '/TimeLine.vue', force: true}) 
     },
   },
 };
