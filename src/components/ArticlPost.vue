@@ -60,9 +60,9 @@ export default {
     items: ["ラーメン", "つけ麺", "僕イケメン", "パスタ"],
     title: "",
     menu: "",
-    input: "",
+    input: 0,
     userid: "17ec5bf6-2f51-11ed-9c65-0242ac150004",
-    exerciseId: "1",
+    exerciseId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   }),
 
   methods: {
