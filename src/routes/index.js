@@ -7,9 +7,17 @@ import LogIn from '../components/LogIn.vue'
 import TimeLine from '../components/TimeLine.vue'
 import ArticlPost from '../components/ArticlPost.vue'
 import MyPage from '../components/MyPage.vue'
+import MyLogin from '../components/MyLogin.vue'
+import LogOut from '../components/LogOut.vue'
 
 
 const routes = [
+  {
+    path: '/log',
+    name: 'MyLogin',
+    component: MyLogin
+  },
+
   {
     path: '/',
     name: 'Home',
@@ -50,7 +58,12 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPage
-  }
+  },
+  {
+    path: '/logout',
+    name: 'MyLogout',
+    component: LogOut
+  },
 ]
 
 const router = createRouter({
