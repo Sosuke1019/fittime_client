@@ -61,12 +61,14 @@ export default {
     title: "",
     menu: "",
     input: 0,
-    userid: "17ec5bf6-2f51-11ed-9c65-0242ac150004",
+    userid: "",
     exerciseId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   }),
 
   methods: {
     submit: async function () {
+      this.userid = sessionStorage.getItem("id");
+      console.log(this.userid);
       await axios
         .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
           "title": this.title,
