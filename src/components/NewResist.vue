@@ -69,7 +69,7 @@ export default {
             this.info = response.status
             console.log(this.info)
             if(this.info==200){
-                this.$router.push('/home');
+                this.$router.push('/login');
             }
 
         }
