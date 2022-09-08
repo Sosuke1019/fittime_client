@@ -9,19 +9,21 @@ import ArticlPost from '../components/ArticlPost.vue'
 import MyPage from '../components/MyPage.vue'
 import MyLogin from '../components/MyLogin.vue'
 import LogOut from '../components/LogOut.vue'
+import TimeLab from '../components/TimeLab.vue'
+import NewResist from '../components/NewResist.vue'
 
 
 const routes = [
   {
-    path: '/log',
-    name: 'MyLogin',
-    component: MyLogin
+    path: '/',
+    name: 'MyHome',
+    component: MyHome
   },
 
   {
-    path: '/',
-    name: 'Home',
-    component: MyHome
+    path: '/login',
+    name: 'MyLogin',
+    component: MyLogin
   },
   {
     path: '/list',
@@ -63,6 +65,16 @@ const routes = [
     path: '/logout',
     name: 'MyLogout',
     component: LogOut
+  },
+  {
+    path: '/timelab',
+    name: 'TimeLab',
+    component: TimeLab
+  },
+  {
+    path: '/resist',
+    name: 'NewResist',
+    component: NewResist
   },
 ]
 
