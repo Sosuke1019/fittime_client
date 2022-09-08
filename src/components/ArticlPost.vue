@@ -28,7 +28,7 @@
         v-bind:rules="myrules"
       ></v-textarea>
       <!-- ドロップダウンメニュー -->
-      <v-select :items="items" filled label="ジャンル選択" v-model="exerciseId"></v-select>
+      <v-select :items="keys" filled label="ジャンル選択" v-model="exerciseId"></v-select>
       <div class="text-center"></div>
       <!-- 所要時間入力 -->
       <v-textarea
@@ -57,12 +57,13 @@ export default {
     MyBar: MyBar,
   },
   data: () => ({
-    items: ["ラーメン", "つけ麺", "僕イケメン", "パスタ"],
+    items: [],
+    keys: [],
     title: "",
     menu: "",
-    input: 0,
+    input: "",
     userid: "",
-    exerciseId: "fde8b72a-2f94-11ed-8335-0242ac170004",
+    exerciseId: "",
   }),
 
   mounted(){
@@ -89,21 +90,21 @@ export default {
     },
 
     tag: async function () {
-        this.userid = sessionStorage.getItem("id")
         await axios
-        .get("http://118.27.15.148:8000/api/user/"+this.userid, {
-          userid: this.userid,
+        .get("http://118.27.15.148:8000/api/exercise", {
           
         })
         .then(response => {
-          
-          this.edit_before_username = response.data["Name"]
-          this.edit_before_profile = response.data["Profile"]
-
-          console.log(this.edit_before_username)
-          console.log(this.edit_before_profile)
+          console.log("hellow")
+          this.items = response.data["exercises"]
+          // console.log(ex)
+          console.log(this.items)
+          this.items.forEach(element => this.keys.push(element("Name")))
             
-        }) 
+          
+          console.log(this.items)
+          console.log(this.keys)
+        })
              
               
     },

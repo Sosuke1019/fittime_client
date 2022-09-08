@@ -52,11 +52,13 @@
         <div class="columns medium-3" v-for="menu in menus" :key="menu.menuId">
           <v-col cols="auto">
             <v-card width="450" height="450" class="overflow-auto">
-              <v-btn class="mx-2" fab  small color="white" @click="add" >
+              <v-btn class="mx-2" fab  small color="white" @click="setid(menu); add()">
                 <v-icon color="pink"> mdi-heart</v-icon>
               </v-btn>
               <v-card-text>
                 <h3>{{ menu.title }}</h3>
+                <h4>{{menu.menuId}}</h4>
+                <h4>{{menu.username}}</h4>
                 {{ menu.body }}
               </v-card-text>
             </v-card>
@@ -84,6 +86,7 @@ export default {
       menus: [],
       menuid:"",
       userid:'',
+      info:'',
     };
   },
   // data1: () => ({
@@ -198,20 +201,29 @@ export default {
       // .then(function (response) {
       //   this.menus = response;         
       //   });
-
+      .then(response=>{
+      console.log(response);  
+      this.menus=response.data.menus;
       this.$router.push('/timelab');
 
+      })
       
+    },
+    
+    setid(menu){
+      this.info=menu.menuId;
     },
 
     add(){
       this.userid=sessionStorage.getItem("id");
-      this.menuid = this.menus.menus.menuId;
+      this.menuid = this.info;
+      console.log(this.info)
 
       axios
       .post("http://118.27.15.148:8000/api/user/"+this.userid+"/favorite/"+this.menuid,{})
-      .then(function (response) {
-        console.log(response);          
+      .then(response=>{
+        // console.log(response);  
+        this.menus=response;        
         });
 
       this.$router.push('/timelab')
@@ -224,14 +236,14 @@ export default {
     },
   },
 
-  mounted() {
-     axios
-     .get("http://118.27.15.148:8000/api/timeline", {})
-     .then(response =>{
-        console.log(response);
-        this.menus = response;     
-        });
-  },
+  // mounted() {
+  //    axios
+  //    .get("http://118.27.15.148:8000/api/timeline", {})
+  //    .then(response =>{
+  //       console.log(response);
+  //       this.menus = response;     
+  //       });
+  // },
 };
 </script>
 
