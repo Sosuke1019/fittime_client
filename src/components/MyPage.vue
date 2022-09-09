@@ -80,10 +80,13 @@ export default {
       posint: 0,
       level: 0,
       ststus: "",
+
+      // tableに必要な変数宣言
+
       // tableに入力されるデータ
       headers: [
           {
-            text: 'Dessert (100g serving)',
+            text: '運動log',
             align: 'start',
             sortable: false,
             value: 'name',
