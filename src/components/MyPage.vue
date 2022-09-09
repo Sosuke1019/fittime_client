@@ -44,7 +44,7 @@
         </div>
 
         <!-- テーブル作成 -->
-        <v-table>
+        <v-table id="table">
           <thead>
             <tr>
               <th class="text-left">Date</th>
@@ -167,7 +167,7 @@ export default {
         .then((response) => {
           this.date = response.data["date"];
           this.menu = response.data["menu"];
-          this.menu_s = this.menu["point"];
+          this.menu_s = this.menu["Point"];
 
           console.log(this.menu);
           console.log(this.date);
@@ -195,5 +195,9 @@ export default {
   margin: auto;
   margin-bottom: 17px;
   text-align: center;
+}
+#table{
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
 </style>
