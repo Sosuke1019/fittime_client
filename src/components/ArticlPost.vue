@@ -28,10 +28,13 @@
       ></v-textarea>
       <!-- ドロップダウンメニュー -->
       <v-select
-        :items="keys"
-        filled
-        label="ジャンル選択"
-        v-model="exerciseId"
+        v-model="key"
+        :items="items"
+        label="エクササイズ"
+        item-title="name"
+        item-value="id"
+        placeholder="エクササイズを選択"
+        single-line
       ></v-select>
       <div class="text-center"></div>
       <!-- 所要時間入力 -->
@@ -64,17 +67,17 @@ export default {
     myrules_title: [(text) => text.length <= 20 || "最大文字数は20文字です"],
     myrules_menu: [(text) => text.length <= 50 || "最大文字数は50文字です"],
     items: [],
-    keys: [],
+    // name: [],
     title: " ",
     menu: " ",
     input: 1,
     userid: "",
-    exerciseId: "64960144-2fe1-11ed-9f29-0242ac190004",
+    key:"",
   }),
 
-  // mounted(){
-  //     this.tag();
-  //   },
+  mounted(){
+      this.tag();
+    },
 
   methods: {
     submit: async function () {
@@ -87,32 +90,28 @@ export default {
         .post("http://118.27.15.148:8000/api/user/" + this.userid + "/menu", {
           title: this.title,
           body: this.menu,
-          exerciseId: this.exerciseId,
+          exerciseId: this.key,
           time: Number(this.input),
         })
         .then(function (response) {
           console.log(response);
         });
-      this.$router.go({ path: "/TimeLab.vue", force: true });
+        this.$router.go({ path: "/TimeLab.vue", force: true });
     },
 
-    // tag: async function () {
-    //     await axios
-    //     .get("http://118.27.15.148:8000/api/exercise", {
+    tag: async function () {
+        await axios
+        .get("http://118.27.15.148:8000/api/exercise", {
 
-    //     })
-    //     .then(response => {
-    //       console.log("hellow")
-    //       this.items = response.data["exercises"]
-    //       // console.log(ex)
-    //       console.log(this.items)
-    //       this.items.forEach(element => this.keys.push(element("Name")))
+        })
+        .then(response => {
+          this.items = response.data["exercises"]
 
-    //       console.log(this.items)
-    //       console.log(this.keys)
-    //     })
+          console.log(this.items)
+          console.log(this.name)
+        })
 
-    // },
+    },
   },
 };
 </script>

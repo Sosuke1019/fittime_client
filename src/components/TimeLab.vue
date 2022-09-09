@@ -200,8 +200,7 @@ export default {
 
       // this.menus = response.menus;
 
-      await axios.get("http://118.27.15.148:8000/api/search", 
-        "/search?word="+this.tag
+      await axios.get("http://118.27.15.148:8000/api/search?word="+this.tag
       )
       // .then(function (response) {
       //   this.menus = response;         
@@ -209,7 +208,7 @@ export default {
       .then(response=>{
       console.log(response);  
       this.menus=response.data.menus;
-      this.$router.push('/timelab');
+      // this.$router.push('/timelab');
 
       })
       
