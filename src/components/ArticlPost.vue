@@ -12,6 +12,7 @@
         rows="1"
         row-height="20"
         placeholder="タイトルを入力"
+        v-bind:rules="myrules_title"
       ></v-textarea>
 
       <!-- メニュー追記 -->
@@ -23,7 +24,7 @@
         no-resize
         placeholder="トレーニングメニューを入力"
         rows="3"
-        v-bind:rules="myrules"
+        v-bind:rules="myrules_menu"
       ></v-textarea>
       <!-- ドロップダウンメニュー -->
       <v-select
@@ -60,6 +61,8 @@ export default {
     MyBar: MyBar,
   },
   data: () => ({
+    myrules_title: [(text) => text.length <= 20 || "最大文字数は20文字です"],
+    myrules_menu: [(text) => text.length <= 50 || "最大文字数は50文字です"],
     items: [],
     keys: [],
     title: " ",
@@ -90,7 +93,7 @@ export default {
         .then(function (response) {
           console.log(response);
         });
-      this.$router.go({path: '/TimeLab.vue', force: true})
+      this.$router.go({ path: "/TimeLab.vue", force: true });
     },
 
     // tag: async function () {
