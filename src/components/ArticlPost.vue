@@ -59,9 +59,9 @@ export default {
   data: () => ({
     items: [],
     keys: [],
-    title: "dkrivjj",
-    menu: "jduej",
-    input: 12,
+    title: "",
+    menu: "",
+    input: 1,
     userid: "",
     exerciseId: "bb185fb3-2faf-11ed-8e7f-0242ac190004",
   }),
