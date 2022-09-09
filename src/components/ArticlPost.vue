@@ -32,6 +32,7 @@
       <div class="text-center"></div>
       <!-- 所要時間入力 -->
       <v-textarea
+        
         v-model="input"
         filled
         auto-grow
@@ -59,11 +60,11 @@ export default {
   data: () => ({
     items: [],
     keys: [],
-    title: "",
-    menu: "",
+    title: " ",
+    menu: " ",
     input: 1,
     userid: "",
-    exerciseId: "bb185fb3-2faf-11ed-8e7f-0242ac190004",
+    exerciseId: "64960144-2fe1-11ed-9f29-0242ac190004",
   }),
 
   // mounted(){
@@ -77,17 +78,17 @@ export default {
       console.log(this.title);
       console.log(this.menu);
       console.log(this.input);
-await axios
+        await axios
         .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
           "title": this.title,
           "body": this.menu,
           "exerciseId": this.exerciseId,
-          "time": this.input,
+          "time": Number(this.input),
         })
         .then(function (response) {
           console.log(response);
         });
-      this.$router.go({path: '/TimeLab.vue', force: true}) 
+      // this.$router.go({path: '/TimeLab.vue', force: true}) 
     },
 
     // tag: async function () {
