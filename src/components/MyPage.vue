@@ -31,6 +31,9 @@
           rows="3"
           v-bind:rules="myrules"
         ></v-textarea>
+        
+        <div id = ""></div>
+
         <div>
           <v-btn depressed color="primary" v-on:click="edit"> 編集 </v-btn>
         </div>
@@ -60,6 +63,10 @@ export default {
       edit_profile: "",
       name: "",
       userid: "",
+      posint: 0,
+      level: 0,
+      ststus: "",
+
     };
   },
 
@@ -104,6 +111,9 @@ export default {
         .then((response) => {
           this.edit_before_username = response.data["Name"];
           this.edit_before_profile = response.data["Profile"];
+          this.point = response.data["Point"];
+          this.level = response.data["Level"];
+          this.status = response.data["Status"];
 
           console.log(this.edit_before_username);
           console.log(this.edit_before_profile);
