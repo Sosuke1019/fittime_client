@@ -31,8 +31,13 @@
           rows="3"
           v-bind:rules="myrules"
         ></v-textarea>
-        
-        <div id = ""></div>
+
+        <!-- stasusを記述 -->
+        <div id = "status">
+          <p >Point:{{point}}&emsp;</p>
+          <p >Level:{{level}}&emsp;</p>
+          <p >Status:{{status}}&emsp;</p>
+        </div>
 
         <div>
           <v-btn depressed color="primary" v-on:click="edit"> 編集 </v-btn>
@@ -135,4 +140,12 @@ export default {
   margin-bottom: 10px;
   font-size: 35px;
 }
+#status{
+  font-size: 10px;
+  display: flex;
+  margin: auto;
+  margin-bottom: 17px;
+  text-align: center;
+}
+
 </style>
