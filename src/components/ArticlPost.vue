@@ -2,9 +2,7 @@
   <MyBar />
   <v-sheet id="scrolling-techniques-7" class="overflow-y-auto" max-height="600">
     <div id="body">
-
-        <h1>投稿</h1>
-
+      <h1>投稿</h1>
 
       <v-textarea
         v-model="title"
@@ -28,11 +26,15 @@
         v-bind:rules="myrules"
       ></v-textarea>
       <!-- ドロップダウンメニュー -->
-      <v-select :items="keys" filled label="ジャンル選択" v-model="exerciseId"></v-select>
+      <v-select
+        :items="keys"
+        filled
+        label="ジャンル選択"
+        v-model="exerciseId"
+      ></v-select>
       <div class="text-center"></div>
       <!-- 所要時間入力 -->
       <v-textarea
-        
         v-model="input"
         filled
         auto-grow
@@ -78,23 +80,23 @@ export default {
       console.log(this.title);
       console.log(this.menu);
       console.log(this.input);
-        await axios
-        .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
-          "title": this.title,
-          "body": this.menu,
-          "exerciseId": this.exerciseId,
-          "time": Number(this.input),
+      await axios
+        .post("http://118.27.15.148:8000/api/user/" + this.userid + "/menu", {
+          title: this.title,
+          body: this.menu,
+          exerciseId: this.exerciseId,
+          time: Number(this.input),
         })
         .then(function (response) {
           console.log(response);
         });
-      // this.$router.go({path: '/TimeLab.vue', force: true}) 
+      // this.$router.go({path: '/TimeLab.vue', force: true})
     },
 
     // tag: async function () {
     //     await axios
     //     .get("http://118.27.15.148:8000/api/exercise", {
-          
+
     //     })
     //     .then(response => {
     //       console.log("hellow")
@@ -102,13 +104,11 @@ export default {
     //       // console.log(ex)
     //       console.log(this.items)
     //       this.items.forEach(element => this.keys.push(element("Name")))
-            
-          
+
     //       console.log(this.items)
     //       console.log(this.keys)
     //     })
-             
-              
+
     // },
   },
 };

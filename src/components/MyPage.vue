@@ -7,9 +7,7 @@
       max-height="600"
     >
       <div id="body">
-        
-          <h1>{{edit_before_username}}さんのMyPage</h1>
-        
+        <h1>{{ edit_before_username }}さんのMyPage</h1>
 
         <v-textarea
           v-model="edit_name"
@@ -51,68 +49,68 @@ export default {
     MyBar: MyBar,
   },
   // data: () => ({
-    data() {
-      return {
-        myrules: [(text) => text.length <= 30 || "最大文字数は30文字です"],
-        myrules_n: [(text) => text.length <= 10 || "最大文字数は10文字です"],
-        showPassword: false,
-        edit_before_username: "1",
-        edit_before_profile: "",
-        edit_name: "",
-        edit_profile: "",
-        name: "",
-        userid: "",
-      };
+  data() {
+    return {
+      myrules: [(text) => text.length <= 30 || "最大文字数は30文字です"],
+      myrules_n: [(text) => text.length <= 10 || "最大文字数は10文字です"],
+      showPassword: false,
+      edit_before_username: "1",
+      edit_before_profile: "",
+      edit_name: "",
+      edit_profile: "",
+      name: "",
+      userid: "",
+    };
+  },
+
+  mounted() {
+    this.save();
+  },
+
+  methods: {
+    // プロフィール情報を更新
+    edit: async function () {
+      await axios
+        .patch(
+          "http://118.27.15.148:8000/api/user/" + this.userid + "/username",
+          {
+            username: this.edit_name,
+          }
+        )
+        .then((response) => {
+          console.log(response.data["Name"]);
+        });
+
+      await axios
+        .patch(
+          "http://118.27.15.148:8000/api/user/" + this.userid + "/profile",
+          {
+            profile: this.edit_profile,
+          }
+        )
+        .then((response) => {
+          console.log(response.data["Profile"]);
+        });
+
+      this.$router.go({ path: this.$router.currentRoute.path, force: true });
     },
 
-    mounted(){
-      this.save();
-    },
-    
-    methods: {
-      // プロフィール情報を更新
-      edit: async function () {
+    save: async function () {
+      this.userid = sessionStorage.getItem("id");
       await axios
-        .patch("http://118.27.15.148:8000/api/user/" + this.userid + "/username", 
-        {
-          username: this.edit_name,
-          })
-        .then(response => {
-                  console.log(response.data["Name"])   
-        })    
-
-      await axios
-        .patch("http://118.27.15.148:8000/api/user/" + this.userid + "/profile", {
-          profile: this.edit_profile,
-        })
-        .then(response => {
-             console.log(response.data["Profile"])      
-        }) 
-        
-        this.$router.go({path: this.$router.currentRoute.path, force: true}) 
-      },
-
-      save: async function () {
-        this.userid = sessionStorage.getItem("id")
-        await axios
-        .get("http://118.27.15.148:8000/api/user/"+this.userid, {
+        .get("http://118.27.15.148:8000/api/user/" + this.userid, {
           userid: this.userid,
-          
         })
-        .then(response => {
-          
-          this.edit_before_username = response.data["Name"]
-          this.edit_before_profile = response.data["Profile"]
+        .then((response) => {
+          this.edit_before_username = response.data["Name"];
+          this.edit_before_profile = response.data["Profile"];
 
-          console.log(this.edit_before_username)
-          console.log(this.edit_before_profile)
-            
-        }) 
-             
-              
-    },   
-}
-}
+          console.log(this.edit_before_username);
+          console.log(this.edit_before_profile);
+        });
+    },
+  },
+};
 </script>
 
 
@@ -122,9 +120,9 @@ export default {
   text-align: center;
   margin: auto;
 }
-#body h1{
+#body h1 {
   margin-top: 20px;
   margin-bottom: 10px;
-font-size: 35px;
+  font-size: 35px;
 }
 </style>
