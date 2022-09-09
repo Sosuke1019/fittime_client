@@ -27,7 +27,10 @@
       <v-form>
         <v-text-field label="search" v-model="tag"></v-text-field>
         <v-card-actions class="justify-center">
+          <v-col>
           <v-btn class="info" @click="searchUser">Search</v-btn>
+          <v-btn @click='myview'>View My log</v-btn>
+          </v-col>
         </v-card-actions>
       </v-form>
       <!-- <v-list nav dense>
@@ -52,13 +55,14 @@
         <div class="columns medium-3" v-for="menu in menus" :key="menu.menuId">
           <v-col cols="auto">
             <v-card width="450" height="450" class="overflow-auto">
-              <v-btn class="mx-2" fab  small color="white" @click="setid(menu); add()">
+              <v-btn class="mx-2" fab  small color="white"  @click="setid(menu);add()">
                 <v-icon color="pink"> mdi-heart</v-icon>
               </v-btn>
               <v-card-text>
                 <h3>{{ menu.title }}</h3>
                 <h4>{{menu.menuId}}</h4>
                 <h4>{{menu.username}}</h4>
+                <h5>{{menu.date}}</h5>
                 {{ menu.body }}
               </v-card-text>
             </v-card>
@@ -117,6 +121,7 @@ export default {
     // },
 
     searchUser: async function () {
+      console.log(this.tag)
       // const response = {
       //   users: [
       //     {
@@ -210,24 +215,43 @@ export default {
       
     },
     
-    setid(menu){
-      this.info=menu.menuId;
+    setid(proxy){
+      console.log(proxy);
+      console.log(proxy.menuId);
+      this.info = proxy.menuId;
+      console.log(this.info);
+      // this.info=menu.;
     },
 
     add(){
       this.userid=sessionStorage.getItem("id");
+      console.log(this.userid);
       this.menuid = this.info;
-      console.log(this.info)
+      // console.log(menu.[[Target]]);
 
       axios
       .post("http://118.27.15.148:8000/api/user/"+this.userid+"/favorite/"+this.menuid,{})
       .then(response=>{
-        // console.log(response);  
-        this.menus=response;        
+        console.log(response);  
+             
         });
 
       this.$router.push('/timelab')
     },
+
+    myview(){
+      this.userid=sessionStorage.getItem("id");
+      axios
+      .get("http://118.27.15.148:8000/api/timeline/"+this.userid)
+      .then(response=>{
+        console.log(response);
+        this.menus=response.data;
+        this.$router.push('/timelab');   
+      }
+
+      );
+      this.$router.push('/timelab');
+    }
   },
 
   watch: {
@@ -236,14 +260,14 @@ export default {
     },
   },
 
-  // mounted() {
-  //    axios
-  //    .get("http://118.27.15.148:8000/api/timeline", {})
-  //    .then(response =>{
-  //       console.log(response);
-  //       this.menus = response;     
-  //       });
-  // },
+  mounted() {
+     axios
+     .get("http://118.27.15.148:8000/api/search")
+     .then(response =>{
+        console.log(response);
+        this.menus = response.data.menus;  
+        });
+  },
 };
 </script>
 

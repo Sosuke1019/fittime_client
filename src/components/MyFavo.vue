@@ -35,8 +35,9 @@
         <div class="columns medium-3" v-for="menu in menus" :key="menu.menuId">
           <v-col cols="auto">
             <v-card width="450" height="450" class="overflow-auto">
-              <v-btn class="mx-2" fab  small color="white" @click="add">
-                <v-icon color="pink"> mdi-heart </v-icon>
+              <v-btn class="mx-2" fab  small color="blue" @click="addlog(menu)">
+                WORK
+                <v-icon darkligtht> mdi-checkbox-marked-circle </v-icon>
               </v-btn>
               <v-card-text>
                 <h3>{{ menu.title }}</h3>
@@ -60,92 +61,35 @@ export default {
     selected: [],
     menus: [],
     flag: false,
+    userid:'',
+    menuid:'',
+    info:'',
   }),
   components: {
     MyBar: MyBar,
   },
 
   methods: {
-    searchUser: async function () {
-      // const response = {
-      //   users: [
-      //     {
-      //       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       username: "nanashi",
-      //     },
-      //     {
-      //       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       username: "nanashi",
-      //     },
-      //     {
-      //       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       username: "nanashi",
-      //     },
-      //     {
-      //       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       username: "nanashi",
-      //     },
-      //     {
-      //       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       username: "nanashi",
-      //     },
-      //   ],
-      //   menus: [
-      //     {
-      //       menuId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       title: "最強メニュー",
-      //       username: "nanashi",
-      //       body: "体力がある人むけのメニューです。これを1日一回すれば激痩せすること間違いなし！",
-      //       nice: 56,
-      //       point: 18,
-      //       exercises: [
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       menuId: "3fa85f64-5717-4562-b3fc-2c963f66afa",
-      //       username: "nanashi",
-      //       body: "体力がある人むけのメニューです。これを1日一回すれば激痩せすること間違いなし！",
-      //       nice: 56,
-      //       point: 18,
-      //       exercises: [
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //         {
-      //           no: 0,
-      //           name: "腹筋",
-      //           time: 10,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // };
+    addlog(proxy){
+      console.log(proxy);
+      console.log(proxy.menuId);
+      this.info = proxy.menuId;
+      console.log(this.info);
 
-      // axios
-      // .get("")
-      // this.menus = response.menus;
+      this.userid=sessionStorage.getItem("id");
+      console.log(this.userid);
+      this.menuid = this.info;
+      // console.log(menu.[[Target]]);
+
+      axios
+      .post("http://118.27.15.148:8000/api/user/"+this.userid+"/log/"+this.menuid,{})
+      .then(response=>{
+        console.log(response);  
+             
+        });
+
+      this.$router.push('/favo')
+    }
 
       
     },
@@ -153,17 +97,15 @@ export default {
 
 
 
-  },
+  
 
   mounted() {
         this.userid=sessionStorage.getItem("id");
         console.log(this.userid);
 
         axios
-        .get("http://118.27.15.148:8000/api/user/cf107490-2fa4-11ed-8a70-0242ac180004/favorite")
-        .then(response =>{
-        // console.log(response);  
-        console.log(response); 
+        .get("http://118.27.15.148:8000/api/user/"+this.userid+"/favorite")
+        .then(response =>{ 
         this.menus=response.data  
         console.log(response);    
         });
