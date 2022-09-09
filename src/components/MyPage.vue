@@ -47,12 +47,17 @@
         <v-table>
           <thead>
             <tr>
-              <th class="text-left">Name</th>
-              <th class="text-left">Calories</th>
+              <th class="text-left">Date</th>
+              <th class="text-left">Point</th>
+              <th class="text-left">Menu</th>
+
+              <!-- <th class="text-left">Title</th>
+              <th class="text-left">Point</th> -->
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in desserts" :key="item.name">
+            <tr v-for="item in desserts" :key="item.date">
+              <td>{{ item.date }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.calories }}</td>
             </tr>
@@ -87,59 +92,29 @@ export default {
       posint: 0,
       level: 0,
       ststus: "",
+      menu_s: 0,
 
       // tableに必要な変数宣言
       menu: [],
-      date: 0,
+      date: "",
       // tableに入力されるデータ
       desserts: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
+            date: "2022/01/01",
+            name: 150,
+            calories: "腹筋",
           },
           {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
+            date: "2022/03/01",
+            name: '120',
+            calories: "腕立て伏せ",
+          }
         ],
     };
   },
 
   mounted() {
     this.save();
-    this.log();
   },
 
   methods: {
@@ -185,15 +160,14 @@ export default {
 
           console.log(this.edit_before_username);
           console.log(this.edit_before_profile);
-        });
-    },
+          });
 
-    log: async function () {
-      await axios
+        await axios
         .get("http://118.27.15.148:8000/api/timeline/" + this.userid, {})
         .then((response) => {
-          this.menu = response.data["Menu"];
-          this.date = response.data["Date"];
+          this.date = response.data["date"];
+          this.menu = response.data["menu"];
+          this.menu_s = this.menu["point"];
 
           console.log(this.menu);
           console.log(this.date);
