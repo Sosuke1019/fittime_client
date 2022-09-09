@@ -59,55 +59,56 @@ export default {
   data: () => ({
     items: [],
     keys: [],
-    title: "",
-    menu: "",
-    input: "",
+    title: "dkrivjj",
+    menu: "jduej",
+    input: 12,
     userid: "",
-    exerciseId: "",
+    exerciseId: "bb185fb3-2faf-11ed-8e7f-0242ac190004",
   }),
 
-  mounted(){
-      this.tag();
-    },
+  // mounted(){
+  //     this.tag();
+  //   },
 
   methods: {
     submit: async function () {
       this.userid = sessionStorage.getItem("id");
       console.log(this.userid);
-      console.log(this.title)
-      console.log(this.menu)
-      await axios
+      console.log(this.title);
+      console.log(this.menu);
+      console.log(this.input);
+await axios
         .post("http://118.27.15.148:8000/api/user/"+this.userid + "/menu", {
-          title: this.title,
-          body: this.menu,
-          exerciseId: this.exerciseId,
-          time: this.input,
+          "title": this.title,
+          "body": this.menu,
+          "exerciseId": this.exerciseId,
+          "time": this.input,
         })
         .then(function (response) {
           console.log(response);
         });
-      this.$router.go({path: '/TimeLine.vue', force: true}) 
+      this.$router.go({path: '/TimeLab.vue', force: true}) 
     },
 
-    tag: async function () {
-        await axios
-        .get("http://118.27.15.148:8000/api/exercise", {
+    // tag: async function () {
+    //     await axios
+    //     .get("http://118.27.15.148:8000/api/exercise", {
           
-        })
-        .then(response => {
-          console.log("hellow")
-          this.items = response.data["exercises"]
-          // console.log(ex)
-          console.log(this.items)
-          this.items.forEach(element => this.keys.push(element("Name")))
+    //     })
+    //     .then(response => {
+    //       console.log("hellow")
+    //       this.items = response.data["exercises"]
+    //       // console.log(ex)
+    //       console.log(this.items)
+    //       this.items.forEach(element => this.keys.push(element("Name")))
             
           
-          console.log(this.items)
-          console.log(this.keys)
-        })
+    //       console.log(this.items)
+    //       console.log(this.keys)
+    //     })
              
               
-    },
+    // },
   },
 };
 </script>
