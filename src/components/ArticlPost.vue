@@ -90,7 +90,7 @@ export default {
         .then(function (response) {
           console.log(response);
         });
-      // this.$router.go({path: '/TimeLab.vue', force: true})
+      this.$router.go({path: '/TimeLab.vue', force: true})
     },
 
     // tag: async function () {
