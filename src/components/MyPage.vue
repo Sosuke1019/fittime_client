@@ -44,16 +44,16 @@
         </div>
 
         <!-- テーブル作成 -->
-        <v-table id="table">
+        <!-- <v-table id="table">
           <thead>
             <tr>
               <th class="text-left">Date</th>
               <th class="text-left">Point</th>
-              <th class="text-left">Menu</th>
+              <th class="text-left">Menu</th> -->
 
               <!-- <th class="text-left">Title</th>
               <th class="text-left">Point</th> -->
-            </tr>
+            <!-- </tr>
           </thead>
           <tbody>
             <tr v-for="item in desserts" :key="item.date">
@@ -62,7 +62,7 @@
               <td>{{ item.calories }}</td>
             </tr>
           </tbody>
-        </v-table>
+        </v-table> -->
       </div>
     </v-sheet>
   </v-app>
