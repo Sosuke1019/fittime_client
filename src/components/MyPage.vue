@@ -33,15 +33,23 @@
         ></v-textarea>
 
         <!-- stasusを記述 -->
-        <div id = "status">
-          <p >Point:{{point}}&emsp;</p>
-          <p >Level:{{level}}&emsp;</p>
-          <p >Status:{{status}}&emsp;</p>
+        <div id="status">
+          <p>Point:{{ point }}&emsp;</p>
+          <p>Level:{{ level }}&emsp;</p>
+          <p>Status:{{ status }}&emsp;</p>
         </div>
-
+        <!-- 編集ボタン -->
         <div>
           <v-btn depressed color="primary" v-on:click="edit"> 編集 </v-btn>
         </div>
+
+        <!-- テーブル作成 -->
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1"
+        ></v-data-table>
       </div>
     </v-sheet>
   </v-app>
@@ -71,7 +79,6 @@ export default {
       posint: 0,
       level: 0,
       ststus: "",
-
     };
   },
 
@@ -140,12 +147,11 @@ export default {
   margin-bottom: 10px;
   font-size: 35px;
 }
-#status{
+#status {
   font-size: 10px;
   display: flex;
   margin: auto;
   margin-bottom: 17px;
   text-align: center;
 }
-
 </style>
